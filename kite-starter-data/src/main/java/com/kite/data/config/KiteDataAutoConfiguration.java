@@ -17,4 +17,12 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 @RequiredArgsConstructor
 public class KiteDataAutoConfiguration {
     // JPA Auditing enabled
+
+    @org.springframework.context.annotation.Bean
+    @org.springframework.boot.autoconfigure.condition.ConditionalOnClass(name = "org.springframework.security.core.context.SecurityContextHolder")
+    @org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean(org.springframework.data.domain.AuditorAware.class)
+    public org.springframework.data.domain.AuditorAware<String> auditorAware() {
+        return new com.kite.data.audit.SpringSecurityAuditorAware();
+    }
+
 }

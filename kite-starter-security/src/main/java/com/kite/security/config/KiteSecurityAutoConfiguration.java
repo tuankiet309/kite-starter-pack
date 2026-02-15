@@ -34,6 +34,7 @@ import org.springframework.web.filter.CorsFilter;
  * Security Auto-configuration
  */
 @Configuration
+@EnableMethodSecurity
 @EnableConfigurationProperties(KiteSecurityProperties.class)
 @ConditionalOnProperty(prefix = "kite.security", name = "enabled", havingValue = "true", matchIfMissing = true)
 @RequiredArgsConstructor
@@ -42,10 +43,10 @@ public class KiteSecurityAutoConfiguration {
     private final KiteSecurityProperties properties;
 
     @Bean
-    @org.springframework.boot.autoconfigure.condition.ConditionalOnBean(StringRedisTemplate.class)
+    @org.springframework.boot.autoconfigure.condition.ConditionalOnBean(com.kite.redis.util.RedisUtil.class)
     @org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean(TokenBlacklistService.class)
-    public TokenBlacklistService redisTokenBlacklistService(StringRedisTemplate redisTemplate) {
-        return new RedisTokenBlacklistService(redisTemplate);
+    public TokenBlacklistService redisTokenBlacklistService(com.kite.redis.util.RedisUtil redisUtil) {
+        return new RedisTokenBlacklistService(redisUtil, properties);
     }
 
     @Bean
@@ -55,11 +56,19 @@ public class KiteSecurityAutoConfiguration {
     }
 
     @Bean
+    @ConditionalOnMissingBean(com.kite.security.authentication.JwtAuthorityConverter.class)
+    public com.kite.security.authentication.JwtAuthorityConverter jwtAuthorityConverter(JwtUtil jwtUtil) {
+        return new com.kite.security.authentication.DefaultJwtAuthorityConverter(jwtUtil);
+    }
+
+    @Bean
     @ConditionalOnBean(UserDetailsService.class)
     @org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
     public JwtAuthenticationFilter jwtAuthenticationFilter(JwtUtil jwtUtil, UserDetailsService userDetailsService,
-            TokenBlacklistService tokenBlacklistService) {
-        return new JwtAuthenticationFilter(jwtUtil, userDetailsService, tokenBlacklistService);
+            TokenBlacklistService tokenBlacklistService,
+            com.kite.security.authentication.JwtAuthorityConverter jwtAuthorityConverter) {
+        return new JwtAuthenticationFilter(jwtUtil, userDetailsService, tokenBlacklistService, properties,
+                jwtAuthorityConverter);
     }
 
     @Bean

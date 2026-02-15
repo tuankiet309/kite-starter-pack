@@ -18,13 +18,13 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class FileUploadUtil {
 
-    private static final String DEFAULT_UPLOAD_DIR = "uploads";
+    private final String defaultUploadDir;
 
     /**
      * Upload file with original name
      */
     public String uploadFile(MultipartFile file) throws IOException {
-        return uploadFile(file, DEFAULT_UPLOAD_DIR);
+        return uploadFile(file, defaultUploadDir);
     }
 
     /**

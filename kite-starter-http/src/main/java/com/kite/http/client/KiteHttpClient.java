@@ -4,7 +4,6 @@ import java.util.Map;
 
 /**
  * Unified HTTP client abstraction for making external API calls.
- * Supports multiple underlying implementations (RestTemplate, WebClient, OkHttp, Apache HttpClient).
  */
 public interface KiteHttpClient {
 

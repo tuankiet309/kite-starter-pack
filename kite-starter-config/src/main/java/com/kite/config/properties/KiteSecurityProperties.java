@@ -6,12 +6,15 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import java.time.Duration;
 import java.util.List;
 
+/**
+ * Security Properties
+ */
 @Data
 @ConfigurationProperties(prefix = "kite.security")
 public class KiteSecurityProperties {
 
     private boolean enabled = true;
-    private List<String> publicEndpoints = List.of("/auth/**", "/actuator/**", "/swagger-ui/**", "/v3/api-docs/**");
+    private List<String> publicEndpoints;
     private Jwt jwt = new Jwt();
     private Cors cors = new Cors();
 
@@ -21,6 +24,10 @@ public class KiteSecurityProperties {
         private Duration accessTokenValidity = Duration.ofHours(1);
         private Duration refreshTokenValidity = Duration.ofDays(7);
         private boolean rememberMeEnabled = true;
+        private String blacklistPrefix = "kite:auth:blacklist:";
+        private String tokenPrefix = "Bearer ";
+        private boolean statelessRolesEnabled = false;
+        private String roleClaimKey = "roles";
     }
 
     @Data

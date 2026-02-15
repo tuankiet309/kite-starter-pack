@@ -29,4 +29,7 @@ dependencies {
     // Database drivers (optional - projects will add their own)
     compileOnly 'org.postgresql:postgresql'
     compileOnly 'com.mysql:mysql-connector-j'
+
+    // Security for Auditing (optional)
+    compileOnly 'org.springframework.boot:spring-boot-starter-security'
 }

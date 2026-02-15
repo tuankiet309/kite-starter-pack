@@ -306,6 +306,37 @@ public class MyConfig {
 ```
 
 ---
+
+## 📦 Publishing
+
+Since this is a library, you likely want to use it in other projects.
+
+### 1. Publish to Local Maven
+This allows you to use `kite-starter-pack` in other projects on your **same machine**.
+
+```bash
+./gradlew publishToMavenLocal
+```
+*   **Version:** Defined in `build.gradle` (currently `1.0.0-SNAPSHOT`).
+*   **Location:** Installed to `~/.m2/repository/com/kite/...`.
+
+### 2. Use in Another Project
+In your **consumer application's** `build.gradle`:
+
+```gradle
+repositories {
+    mavenCentral()
+    mavenLocal() // <--- Add this!
+}
+
+dependencies {
+    implementation 'com.kite:kite-starter-web:1.0.0-SNAPSHOT'
+    implementation 'com.kite:kite-starter-data:1.0.0-SNAPSHOT'
+    // ...
+}
+```
+
+---
 **Happy Coding!** 🚀
 
 ## 📄 License

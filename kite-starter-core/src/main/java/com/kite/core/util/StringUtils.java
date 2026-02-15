@@ -14,12 +14,7 @@ public final class StringUtils {
         throw new AssertionError("No instances allowed");
     }
 
-    /*
-     * ================================
-     * Check
-     * ================================
-     */
-
+    // Check
     public static boolean hasText(String str) {
         return str != null && !str.isBlank();
     }
@@ -28,12 +23,7 @@ public final class StringUtils {
         return str == null || str.isEmpty();
     }
 
-    /*
-     * ================================
-     * Normalize (for search/index)
-     * ================================
-     */
-
+    // Normalize (for search/index)
     public static String normalize(String input) {
         if (input == null)
             return null;
@@ -45,12 +35,7 @@ public final class StringUtils {
         return normalized.toLowerCase();
     }
 
-    /*
-     * ================================
-     * Slug (SEO safe)
-     * ================================
-     */
-
+    // Slug (SEO safe)
     public static String toSlug(String input) {
         if (input == null)
             return KiteConstants.Character.EMPTY;

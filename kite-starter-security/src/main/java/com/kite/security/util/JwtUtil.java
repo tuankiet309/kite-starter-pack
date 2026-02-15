@@ -32,15 +32,18 @@ public class JwtUtil {
     /**
      * Generate access token (short-lived)
      */
+    /**
+     * Generate access token (short-lived)
+     */
     public String generateAccessToken(String username, Map<String, Object> claims) {
-        return createToken(claims, username, 3600000); // 1 hour
+        return createToken(claims, username, properties.getJwt().getAccessTokenValidity().toMillis());
     }
 
     /**
      * Generate refresh token (long-lived)
      */
     public String generateRefreshToken(String username) {
-        return createToken(Map.of(), username, 604800000); // 7 days
+        return createToken(Map.of(), username, properties.getJwt().getRefreshTokenValidity().toMillis());
     }
 
     private String createToken(Map<String, Object> claims, String subject, long expirationMs) {
@@ -68,6 +71,13 @@ public class JwtUtil {
      */
     public Date extractExpiration(String token) {
         return extractClaim(token, Claims::getExpiration);
+    }
+
+    /**
+     * Extract roles from token
+     */
+    public java.util.List<String> extractRoles(String token) {
+        return extractClaim(token, claims -> claims.get(properties.getJwt().getRoleClaimKey(), java.util.List.class));
     }
 
     /**
