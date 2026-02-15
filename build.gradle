@@ -1,0 +1,74 @@
+plugins {
+    id 'base'
+    id 'maven-publish'
+    id 'org.springframework.boot' version '3.2.0' apply false
+    id 'io.spring.dependency-management' version '1.1.7' apply false
+}
+
+group = 'com.kite'
+version = '1.0.0-SNAPSHOT'
+
+subprojects {
+    apply plugin: 'java-library'
+    apply plugin: 'maven-publish'
+    
+    group = rootProject.group
+    version = rootProject.version
+    
+    java {
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
+    }
+    
+    repositories {
+        mavenCentral()
+    }
+    
+    // Common dependencies for all modules
+    dependencies {
+        compileOnly 'org.projectlombok:lombok:1.18.30'
+        annotationProcessor 'org.projectlombok:lombok:1.18.30'
+        
+        testImplementation 'org.junit.jupiter:junit-jupiter:5.10.0'
+        testImplementation 'org.mockito:mockito-core:5.5.0'
+        testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    }
+    
+    test {
+        useJUnitPlatform()
+    }
+    
+    // Maven Publish Configuration
+    publishing {
+        publications {
+            mavenJava(MavenPublication) {
+                from components.java
+                
+                pom {
+                    name = project.name
+                    description = "Kite Starter Pack - ${project.name}"
+                    url = 'https://github.com/tuankiet309203/kite-starter-pack'
+                    
+                    licenses {
+                        license {
+                            name = 'MIT License'
+                            url = 'https://opensource.org/licenses/MIT'
+                        }
+                    }
+                    
+                    developers {
+                        developer {
+                            id = 'tuankiet309203'
+                            name = 'Nguyễn Tuấn Kiệt'
+                            email = 'nguyentuankiet309203@gmail.com'
+                        }
+                    }
+                }
+            }
+        }
+        
+        repositories {
+            mavenLocal()
+        }
+    }
+}

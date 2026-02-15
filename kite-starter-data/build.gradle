@@ -1,0 +1,32 @@
+// kite-starter-data - JPA, BaseEntity, Repositories
+
+plugins {
+    id 'io.spring.dependency-management'
+}
+
+ext['hibernate.version'] = '6.4.4.Final'
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.boot:spring-boot-dependencies:3.2.0"
+    }
+}
+
+dependencies {
+    api project(':kite-starter-core')
+    api project(':kite-starter-config')
+    
+    // Spring Data JPA
+    compileOnly 'org.springframework.boot:spring-boot-starter-data-jpa'
+    
+    // Lombok
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    
+    // Configuration Processor
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+    
+    // Database drivers (optional - projects will add their own)
+    compileOnly 'org.postgresql:postgresql'
+    compileOnly 'com.mysql:mysql-connector-j'
+}

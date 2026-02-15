@@ -1,0 +1,46 @@
+// kite-starter-http - HTTP Client Abstraction
+
+plugins {
+    id 'io.spring.dependency-management'
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.boot:spring-boot-dependencies:3.2.0"
+    }
+}
+
+dependencies {
+    api project(':kite-starter-core')
+    api project(':kite-starter-config')
+    
+    // Spring Boot Web (RestTemplate)
+    compileOnly 'org.springframework.boot:spring-boot-starter-web'
+    
+    // Spring WebFlux (WebClient)
+    compileOnly 'org.springframework.boot:spring-boot-starter-webflux'
+    compileOnly 'org.springframework.boot:spring-boot-starter-actuator'
+    
+    // Apache HttpClient (Optional)
+    compileOnly 'org.apache.httpcomponents.client5:httpclient5:5.2.1'
+    
+    // Resilience4j (Circuit Breaker, Retry)
+    compileOnly 'io.github.resilience4j:resilience4j-spring-boot3:2.2.0'
+    compileOnly 'io.github.resilience4j:resilience4j-reactor:2.2.0' // For WebClient
+    compileOnly 'org.springframework.boot:spring-boot-starter-aop'
+
+    // Observability (Micrometer, Tracing)
+    compileOnly 'io.micrometer:micrometer-core'
+    compileOnly 'io.micrometer:micrometer-tracing'
+    compileOnly 'io.micrometer:micrometer-tracing-bridge-brave' // Tracing implementation
+
+    // OkHttp (Optional)
+    compileOnly 'com.squareup.okhttp3:okhttp:4.12.0'
+    
+    // Lombok
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    
+    // Configuration Processor
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+}

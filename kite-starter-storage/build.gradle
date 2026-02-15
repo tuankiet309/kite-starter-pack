@@ -1,0 +1,35 @@
+// kite-starter-storage - File Processing & Storage
+
+plugins {
+    id 'io.spring.dependency-management'
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.boot:spring-boot-dependencies:3.2.0"
+    }
+}
+
+dependencies {
+    api project(':kite-starter-core')
+    api project(':kite-starter-config')
+    
+    // Spring Boot Web for MultipartFile support
+    compileOnly 'org.springframework.boot:spring-boot-starter-web'
+    
+    // Apache POI (Excel)
+    compileOnly 'org.apache.poi:poi-ooxml:5.2.5'
+    
+    // Thumbnailator (Image processing)
+    compileOnly 'net.coobird:thumbnailator:0.4.20'
+    
+    // MinIO (Object storage - Optional)
+    compileOnly 'io.minio:minio:8.5.7'
+    
+    // Lombok
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    
+    // Configuration Processor
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+}

@@ -1,0 +1,11 @@
+rootProject.name = 'kite-starter-pack'
+
+// 8-Module Architecture
+include 'kite-starter-core'
+include 'kite-starter-config'
+include 'kite-starter-http'
+include 'kite-starter-data'
+include 'kite-starter-redis'
+include 'kite-starter-security'
+include 'kite-starter-web'
+include 'kite-starter-storage'

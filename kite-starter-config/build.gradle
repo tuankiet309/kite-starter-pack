@@ -1,0 +1,26 @@
+// kite-starter-config - ConfigurationProperties classes
+
+plugins {
+    id 'io.spring.dependency-management'
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.boot:spring-boot-dependencies:3.2.0"
+    }
+}
+
+dependencies {
+    // Spring Boot for @ConfigurationProperties
+    compileOnly 'org.springframework.boot:spring-boot'
+    
+    // Validation (for @Validated on Properties)
+    compileOnly 'org.springframework.boot:spring-boot-starter-validation'
+    
+    // AutoConfiguration support
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+
+    // Lombok
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+}
