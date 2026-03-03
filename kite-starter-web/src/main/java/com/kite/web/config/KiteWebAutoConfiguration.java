@@ -44,14 +44,15 @@ public class KiteWebAutoConfiguration implements org.springframework.web.servlet
 
     @Bean
     @org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
-    public com.kite.web.exception.GlobalExceptionHandler globalExceptionHandler() {
-        return new com.kite.web.exception.GlobalExceptionHandler();
+    public com.kite.web.i18n.MessageUtil messageUtil(MessageSource messageSource) {
+        return new com.kite.web.i18n.MessageUtil(messageSource);
     }
 
     @Bean
     @org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
-    public com.kite.web.i18n.MessageUtil messageUtil(MessageSource messageSource) {
-        return new com.kite.web.i18n.MessageUtil(messageSource);
+    public com.kite.web.exception.GlobalExceptionHandler globalExceptionHandler(
+            com.kite.web.i18n.MessageUtil messageUtil) {
+        return new com.kite.web.exception.GlobalExceptionHandler(messageUtil);
     }
 
     @Override
